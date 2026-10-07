@@ -1,26 +1,558 @@
-@import "tailwindcss";
+/* =========================================
+   RESET
+========================================= */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f7fa;
+  color: #222;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+  background-color: #1e293b;
+  color: white;
+  padding: 20px 0;
+}
+
+.headerContainer {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 25px;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navigation {
+  display: flex;
+  gap: 25px;
+}
+
+.navigation a {
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.navigation a:hover {
+  color: #38bdf8;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main {
+  min-height: 75vh;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+  text-align: center;
+  background-color: #1e293b;
+  color: white;
+  padding: 20px;
+}
+
+
+/* =========================================
+   PAGE ACCUEIL
+========================================= */
+
+.homeHero {
+  min-height: 450px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  background-color: #e0f2fe;
+}
+
+.homeHeroContent {
+  max-width: 700px;
+  padding: 40px;
+}
+
+.homeHeroContent h1 {
+  font-size: 45px;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.homeHeroContent p {
+  font-size: 20px;
+  color: #475569;
+
+  margin-bottom: 30px;
+
+  line-height: 1.6;
+}
+
+.homeButton {
+  display: inline-block;
+
+  background-color: #0284c7;
+  color: white;
+
+  padding: 14px 25px;
+
+  border-radius: 6px;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.homeButton:hover {
+  background-color: #0369a1;
+}
+
+
+/* SECTION ACCUEIL */
+
+.homeSection {
+  width: 90%;
+  max-width: 1100px;
+
+  margin: auto;
+
+  padding: 60px 0;
+}
+
+.homeSection h2 {
+  text-align: center;
+
+  margin-bottom: 40px;
+
+  font-size: 32px;
+}
+
+.homeCards {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.homeCard {
+  background-color: white;
+
+  padding: 30px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.homeCard h3 {
+  margin-bottom: 15px;
+
+  color: #0f172a;
+}
+
+.homeCard p {
+  margin-bottom: 20px;
+
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+.homeCard a {
+  color: #0284c7;
+
+  font-weight: bold;
+}
+
+
+/* =========================================
+   PAGE ÉTUDIANTS
+========================================= */
+
+.studentsPage {
+  width: 90%;
+  max-width: 1000px;
+
+  margin: auto;
+
+  padding: 60px 0;
+}
+
+.studentsTitle {
+  text-align: center;
+
+  font-size: 38px;
+
+  margin-bottom: 15px;
+
+  color: #0f172a;
+}
+
+.studentsDescription {
+  text-align: center;
+
+  color: #64748b;
+
+  margin-bottom: 40px;
+}
+
+.studentsCards {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.studentCard {
+  background-color: white;
+
+  padding: 30px;
+
+  text-align: center;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.studentCard h2 {
+  margin: 15px 0 10px;
+}
+
+.studentCard p {
+  color: #64748b;
+}
+
+.studentAvatar {
+  width: 70px;
+  height: 70px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  background-color: #0284c7;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+  font-weight: bold;
+}
+
+
+/* =========================================
+   PAGE FORMATIONS
+========================================= */
+
+.formationsPage {
+  width: 100%;
+  min-height: 75vh;
+
+  padding: 60px 40px;
+
+  background-color: #f1f5f9;
+}
+
+.formationsTitle {
+  text-align: center;
+
+  margin-bottom: 15px;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.formationsDescription {
+  max-width: 700px;
+
+  margin: 0 auto 50px;
+
+  text-align: center;
+
+  font-size: 18px;
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+.formationsList {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+.formationCard {
+  width: 100%;
+
+  padding: 30px;
+
+  background-color: white;
+
+  border: 1px solid #e2e8f0;
+  border-left: 6px solid #0284c7;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  transition: 0.2s;
+}
+
+.formationCard:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+
+.formationTitle {
+  margin-bottom: 15px;
+
+  font-size: 25px;
+
+  color: #0284c7;
+}
+
+.formationDescription {
+  margin-bottom: 20px;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: #475569;
+}
+
+.formationButton {
+  padding: 11px 22px;
+
+  background-color: #0284c7;
+
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.formationButton:hover {
+  background-color: #0369a1;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PAGE CONTACT
+========================================= */
+
+.contactPage {
+  width: 90%;
+  max-width: 1000px;
+
+  margin: auto;
+
+  padding: 60px 0;
+}
+
+.contactTitle {
+  text-align: center;
+
+  font-size: 38px;
+
+  color: #0f172a;
+
+  margin-bottom: 15px;
+}
+
+.contactDescription {
+  text-align: center;
+
+  color: #64748b;
+
+  margin-bottom: 40px;
+}
+
+.contactContent {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 40px;
+}
+
+.contactInformations {
+  background-color: #e0f2fe;
+
+  padding: 30px;
+
+  border-radius: 10px;
+}
+
+.contactInformations h2 {
+  margin-bottom: 25px;
+
+  color: #0f172a;
+}
+
+.contactInformations p {
+  margin-bottom: 20px;
+
+  line-height: 1.6;
+}
+
+
+/* FORMULAIRE */
+
+.contactForm {
+  background-color: white;
+
+  padding: 30px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.contactForm label {
+  font-weight: bold;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 5px;
+
+  font-size: 16px;
+
+  margin-bottom: 10px;
+
+  font-family: inherit;
+}
+
+.contactForm textarea {
+  resize: vertical;
+}
+
+.contactForm button {
+  background-color: #0284c7;
+
+  color: white;
+
+  border: none;
+
+  padding: 13px;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.contactForm button:hover {
+  background-color: #0369a1;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+  .headerContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .navigation {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .homeCards,
+  .studentsCards {
+    grid-template-columns: 1fr;
+  }
+
+  .contactContent {
+    grid-template-columns: 1fr;
+  }
+
+  .formationsPage {
+    padding: 40px 20px;
+  }
+
+  .homeHeroContent h1,
+  .formationsTitle {
+    font-size: 32px;
+  }
 }
