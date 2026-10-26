@@ -7,7 +7,6 @@ import {
 } from "./actions";
 
 export default async function GestionPage() {
-
   const formations = await prisma.formation.findMany({
     orderBy: {
       id: "desc",
@@ -16,20 +15,13 @@ export default async function GestionPage() {
 
   return (
     <main>
-
       <h1>Gestion des formations</h1>
 
-
-      {/* =========================
-          CREATE
-      ========================= */}
-
+      {/* CREATE */}
       <section>
-
         <h2>Ajouter une formation</h2>
 
         <form action={createFormation}>
-
           <div>
             <label htmlFor="nom">
               Nom
@@ -44,7 +36,6 @@ export default async function GestionPage() {
             />
           </div>
 
-
           <div>
             <label htmlFor="description">
               Description
@@ -53,132 +44,94 @@ export default async function GestionPage() {
             <textarea
               id="description"
               name="description"
-              placeholder="Description de la formation"
+              placeholder="Description"
               required
             />
           </div>
 
-
           <button type="submit">
             Ajouter
           </button>
-
         </form>
-
       </section>
 
-
-
-      {/* =========================
-          READ
-      ========================= */}
-
+      {/* READ */}
       <section>
-
-        <h2>
-          Formations enregistrées
-        </h2>
+        <h2>Formations enregistrées</h2>
 
         {formations.length === 0 ? (
-
-          <p>
-            Aucune formation enregistrée.
-          </p>
-
+          <p>Aucune formation enregistrée.</p>
         ) : (
-
           <div>
+            {formations.map((formation) => {
+              const updateAction =
+                updateFormation.bind(
+                  null,
+                  formation.id
+                );
 
-            {formations.map((formation) => (
+              const deleteAction =
+                deleteFormation.bind(
+                  null,
+                  formation.id
+                );
 
-              <article key={formation.id}>
+              return (
+                <article key={formation.id}>
+                  <h3>{formation.nom}</h3>
 
-                <h3>
-                  {formation.nom}
-                </h3>
+                  <p>
+                    {formation.description}
+                  </p>
 
-                <p>
-                  {formation.description}
-                </p>
+                  {/* UPDATE */}
+                  <form action={updateAction}>
+                    <div>
+                      <label>
+                        Nom
+                      </label>
 
+                      <input
+                        type="text"
+                        name="nom"
+                        defaultValue={
+                          formation.nom
+                        }
+                        required
+                      />
+                    </div>
 
-                {/* =========================
-                    UPDATE
-                ========================= */}
+                    <div>
+                      <label>
+                        Description
+                      </label>
 
-                <form action={updateFormation}>
+                      <textarea
+                        name="description"
+                        defaultValue={
+                          formation.description
+                        }
+                        required
+                      />
+                    </div>
 
-                  <input
-                    type="hidden"
-                    name="id"
-                    value={formation.id}
-                  />
+                    <button type="submit">
+                      Modifier
+                    </button>
+                  </form>
 
-
-                  <div>
-                    <label>
-                      Nom
-                    </label>
-
-                    <input
-                      type="text"
-                      name="nom"
-                      defaultValue={formation.nom}
-                      required
-                    />
-                  </div>
-
-
-                  <div>
-                    <label>
-                      Description
-                    </label>
-
-                    <textarea
-                      name="description"
-                      defaultValue={
-                        formation.description
-                      }
-                      required
-                    />
-                  </div>
-
-
-                  <button type="submit">
-                    Modifier
-                  </button>
-
-                </form>
-
-
-                {/* =========================
-                    DELETE
-                ========================= */}
-
-                <form action={deleteFormation}>
-
-                  <input
-                    type="hidden"
-                    name="id"
-                    value={formation.id}
-                  />
-
-                  <button type="submit">
-                    Supprimer
-                  </button>
-
-                </form>
-
-              </article>
-
-            ))}
-
+                  {/* DELETE */}
+                  <form action={deleteAction}>
+                    <button type="submit">
+                      Supprimer
+                    </button>
+                  </form>
+                </article>
+              );
+            })}
           </div>
-
         )}
-
       </section>
-
     </main>
   );
 }

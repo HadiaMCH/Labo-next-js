@@ -3,11 +3,8 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-
-// CREATE
 export async function createFormation(formData: FormData) {
   const nom = String(formData.get("nom") ?? "").trim();
-
   const description = String(
     formData.get("description") ?? ""
   ).trim();
@@ -26,20 +23,16 @@ export async function createFormation(formData: FormData) {
   revalidatePath("/gestion");
 }
 
-
-// UPDATE
-export async function updateFormation(formData: FormData) {
-  const id = Number(formData.get("id"));
-
-  const nom = String(
-    formData.get("nom") ?? ""
-  ).trim();
-
+export async function updateFormation(
+  id: number,
+  formData: FormData
+) {
+  const nom = String(formData.get("nom") ?? "").trim();
   const description = String(
     formData.get("description") ?? ""
   ).trim();
 
-  if (!id || !nom || !description) {
+  if (!nom || !description) {
     return;
   }
 
@@ -47,7 +40,6 @@ export async function updateFormation(formData: FormData) {
     where: {
       id,
     },
-
     data: {
       nom,
       description,
@@ -57,15 +49,7 @@ export async function updateFormation(formData: FormData) {
   revalidatePath("/gestion");
 }
 
-
-// DELETE
-export async function deleteFormation(formData: FormData) {
-  const id = Number(formData.get("id"));
-
-  if (!id) {
-    return;
-  }
-
+export async function deleteFormation(id: number) {
   await prisma.formation.delete({
     where: {
       id,
