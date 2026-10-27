@@ -8,7 +8,34 @@ datasource db {
 }
 
 model Formation {
-  id          Int    @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   nom         String
-  description String
+  description String?
+
+  cours       Cours[]
+  etudiants   Etudiant[]
+}
+
+model Cours {
+  id          Int       @id @default(autoincrement())
+  titre       String
+
+  formationId Int
+  formation   Formation @relation(fields: [formationId], references: [id])
+}
+
+model Etudiant {
+  id         Int         @id @default(autoincrement())
+  nom        String
+
+  profil     Profil?
+  formations Formation[]
+}
+
+model Profil {
+  id         Int      @id @default(autoincrement())
+  bio        String?
+
+  etudiantId Int      @unique
+  etudiant   Etudiant @relation(fields: [etudiantId], references: [id])
 }

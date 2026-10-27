@@ -3,13 +3,23 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export async function createFormation(formData: FormData) {
-  const nom = String(formData.get("nom") ?? "").trim();
+
+// ==========================
+// CREATE FORMATION
+// ==========================
+
+export async function createFormation(
+  formData: FormData
+) {
+  const nom = String(
+    formData.get("nomFormation") ?? ""
+  ).trim();
+
   const description = String(
     formData.get("description") ?? ""
   ).trim();
 
-  if (!nom || !description) {
+  if (!nom) {
     return;
   }
 
@@ -23,36 +33,101 @@ export async function createFormation(formData: FormData) {
   revalidatePath("/gestion");
 }
 
-export async function updateFormation(
-  id: number,
+
+// ==========================
+// CREATE COURS
+// Relation 1:n
+// ==========================
+
+export async function createCours(
   formData: FormData
 ) {
-  const nom = String(formData.get("nom") ?? "").trim();
-  const description = String(
-    formData.get("description") ?? ""
+  const titre = String(
+    formData.get("titre") ?? ""
   ).trim();
 
-  if (!nom || !description) {
+  const formationId = Number(
+    formData.get("formationId")
+  );
+
+  if (!titre || !formationId) {
     return;
   }
 
-  await prisma.formation.update({
-    where: {
-      id,
-    },
+  await prisma.cours.create({
     data: {
-      nom,
-      description,
+      titre,
+      formationId,
     },
   });
 
   revalidatePath("/gestion");
 }
 
-export async function deleteFormation(id: number) {
-  await prisma.formation.delete({
-    where: {
-      id,
+
+// ==========================
+// CREATE ETUDIANT
+// Relation n:n
+// ==========================
+
+export async function createEtudiant(
+  formData: FormData
+) {
+  const nom = String(
+    formData.get("nomEtudiant") ?? ""
+  ).trim();
+
+  const formationIds = formData
+    .getAll("formations")
+    .map((id) => Number(id))
+    .filter((id) => !Number.isNaN(id));
+
+  if (!nom) {
+    return;
+  }
+
+  await prisma.etudiant.create({
+    data: {
+      nom,
+
+      formations: {
+        connect: formationIds.map(
+          (id) => ({
+            id,
+          })
+        ),
+      },
+    },
+  });
+
+  revalidatePath("/gestion");
+}
+
+
+// ==========================
+// CREATE PROFIL
+// Relation 1:1
+// ==========================
+
+export async function createProfil(
+  formData: FormData
+) {
+  const bio = String(
+    formData.get("bio") ?? ""
+  ).trim();
+
+  const etudiantId = Number(
+    formData.get("etudiantId")
+  );
+
+  if (!etudiantId) {
+    return;
+  }
+
+  await prisma.profil.create({
+    data: {
+      bio,
+      etudiantId,
     },
   });
 
