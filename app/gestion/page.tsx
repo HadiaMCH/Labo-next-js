@@ -16,9 +16,9 @@ export default async function GestionPage() {
   // + leurs cours
   // + leurs étudiants
   // ==========================
-
+   
   await connection();
-  
+
   const formations =
     await prisma.formation.findMany({
       include: {
