@@ -7,6 +7,7 @@ import {
   createProfil,
 } from "./actions";
 
+import { connection } from "next/server";
 
 export default async function GestionPage() {
 
@@ -16,6 +17,8 @@ export default async function GestionPage() {
   // + leurs étudiants
   // ==========================
 
+  await connection();
+  
   const formations =
     await prisma.formation.findMany({
       include: {
